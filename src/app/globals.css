@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .our-button{
+      @apply border-2 py-2 px-4 rounded hover:bg-orange-200;
+    }
+    .action-button {
+
+      @apply border-2 py-2 px-10 rounded-full text-white hover:bg-blue-800  bg-blue-500
+    }
+
+    .our-nav-link {
+
+      @apply   py-2  w-full text-center bg-blue-500 hover:bg-blue-700 text-white font-bold rounded 
+    }
+  }
+
