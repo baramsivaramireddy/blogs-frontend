@@ -41,7 +41,7 @@ const Header = ({ setIsMenuBarOpen, isMenuBarOpen }) => {
             setIsMenuBarOpen(false)
         }
 
-    }, [pathname])
+    }, [pathname , isMenuBarOpen, setIsMenuBarOpen])
     return (<>
 
         <div className='flex flex-col sticky top-0'>

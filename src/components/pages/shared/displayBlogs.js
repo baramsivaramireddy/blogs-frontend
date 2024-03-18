@@ -21,8 +21,8 @@ function DisplayBlogs() {
     const renderImages = () => {
         return blogs.map((blog, index) => (
 
-            <Link href={`/blog/${blog._id}`}>
-                <div key={index} className="bg-white rounded-lg p-4 mb-4 flex  gap-3  items-center border-b-2 border-dashed ">
+            <Link href={`/blog/${blog._id}`} key={index}>
+                <div  className="bg-white rounded-lg p-4 mb-4 flex  gap-3  items-center border-b-2 border-dashed ">
 
 
                     {blog.image && blog.image.data && (
