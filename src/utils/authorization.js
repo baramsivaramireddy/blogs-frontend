@@ -8,6 +8,14 @@ import Link from "next/link"
 const AuthorizationWrapper = ({ allowedRoles,children }) => {
 
 
+    if (process.env.ENVIRONEMNT=='local') {
+        
+        return (
+            <>
+                {children}
+            </>
+        )
+    }
     let token = useToken()
 
 

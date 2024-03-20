@@ -62,7 +62,7 @@ const SubMenuNavBar = ({ subMenuRef }) => {
 const NavItem = ({ title, link }) => {
 
     return (<>
-        <li className="our-nav-link "><Link href={`${link}`}>{title}</Link> </li>
+        <li className="our-nav-link "><Link href={`/${link}`}>{title}</Link> </li>
     </>)
 }
 export default AdminDashboardLayout

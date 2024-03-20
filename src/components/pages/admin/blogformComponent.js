@@ -1,8 +1,9 @@
 import { useForm } from "react-hook-form";
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import axiosInstance from "@/utils/axiosInstance";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import LexicalEditor from "@/editor/LexicalEditor"
 const BLOGFormDataComponent = (props) => {
 
     const [isLoading, setIsloading] = useState(false)
@@ -10,12 +11,14 @@ const BLOGFormDataComponent = (props) => {
     const TITLEFORFORM = props.title
     const router = useRouter()
     const { register, handleSubmit, formState: { errors } } = useForm({ defaultValues: DEFAUTVALUES });
-
+    const editorRef = useRef(null)
     const onSubmit = async (data) => {
 
         try {
 
             setIsloading(true)
+
+           
             const payload = data
             let fileToBeUpload = data?.image[0];
             if (fileToBeUpload) {
@@ -33,6 +36,7 @@ const BLOGFormDataComponent = (props) => {
             }
 
             delete payload.image
+            payload.content = JSON.stringify(editorRef.current.getEditorState())
             let response = await axiosInstance.post("/api/blogs", payload)
 
             if (response.status ==201) {
@@ -77,7 +81,8 @@ const BLOGFormDataComponent = (props) => {
 
                 <div>
                     <label htmlFor="content" className="block text-sm font-medium text-gray-700">Content:</label>
-                    <textarea id="content" {...register("content", { required: true })} className="mt-1 p-2 border border-gray-300 rounded-md w-full" />
+                    <LexicalEditor  ref={editorRef} />
+                    {/* <textarea id="content" {...register("content", { required: true })} className="mt-1 p-2 border border-gray-300 rounded-md w-full" /> */}
                     {errors.content && <span className="text-red-500 text-sm">Content is required</span>}
                 </div>
 

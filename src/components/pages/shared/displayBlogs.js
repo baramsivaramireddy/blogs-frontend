@@ -44,6 +44,8 @@ function DisplayBlogs() {
 
     return (
         <div className="flex flex-col gap-5 ">
+
+            {blogs.length == 0 && <div className='text-center'> NO BLOG YET</div>}
             {renderImages()}
         </div>
 
