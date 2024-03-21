@@ -57,7 +57,9 @@ const LexicalEditor = forwardRef((props, ref) => {
 
 
 
-         {props?.isReadonly == false &&    <EditorRefPlugin editorRef={ref} />}
+         {props?.isReadonly == undefined &&    <EditorRefPlugin editorRef={ref} />}
+
+
         </LexicalComposer>
     )
 })
