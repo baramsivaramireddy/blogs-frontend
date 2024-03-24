@@ -1,51 +1,38 @@
-
-
-"use client"
-
-import { $getRoot, $getSelection } from "lexical"
-
-import { forwardRef, useEffect } from 'react'
-
-
+import { forwardRef, useEffect, useState, useRef } from 'react';
 import { AutoFocusPlugin } from '@lexical/react/LexicalAutoFocusPlugin';
 import { LexicalComposer } from '@lexical/react/LexicalComposer';
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
 import { ContentEditable } from '@lexical/react/LexicalContentEditable';
 import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
-import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary';
-import {EditorRefPlugin} from '@lexical/react/LexicalEditorRefPlugin'
+import { EditorRefPlugin } from '@lexical/react/LexicalEditorRefPlugin';
 import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
-const theme = {
 
-}
+const theme = {};
 
 function onError(err) {
-
-    console.log(err)
+    console.log(err);
 }
 
+function LexicalEditor(props, ref) {
+    const [editorState, setEditorState] = useState(props?.initialEditorState);
+    const editableRef = useRef(null);
 
-
-
-
-const LexicalEditor = forwardRef((props, ref) => {
+    useEffect(() => {
+        if (props?.initialEditorState) {
+            setEditorState(props.initialEditorState);
+        }
+    }, [props.initialEditorState]);
 
     const initialConfig = {
-
         namespace: "Myeditor",
-        editorState: props?.initialEditorState ,
+        editorState,
         theme,
         onError,
-    }
-
-    if (props?.isReadonly ){
-
-        initialConfig.editable = false
-    }
+        editable: !props?.isReadonly,
+    };
 
     return (
-
         <LexicalComposer initialConfig={initialConfig}>
             <RichTextPlugin
                 contentEditable={<ContentEditable />}
@@ -54,13 +41,9 @@ const LexicalEditor = forwardRef((props, ref) => {
             />
             <HistoryPlugin />
             <AutoFocusPlugin />
-
-
-
-         {props?.isReadonly == undefined &&    <EditorRefPlugin editorRef={ref} />}
-
-
+            {props?.isReadonly === undefined && <EditorRefPlugin editorRef={editableRef} />}
         </LexicalComposer>
-    )
-})
-export default LexicalEditor
+    );
+}
+
+export default forwardRef(LexicalEditor);
