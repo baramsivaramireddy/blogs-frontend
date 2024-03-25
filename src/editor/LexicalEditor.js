@@ -16,8 +16,7 @@ function onError(err) {
 
 function LexicalEditor(props, ref) {
     const [editorState, setEditorState] = useState(props?.initialEditorState);
-    const editableRef = useRef(null);
-
+ 
     useEffect(() => {
         if (props?.initialEditorState) {
             setEditorState(props.initialEditorState);
@@ -32,6 +31,8 @@ function LexicalEditor(props, ref) {
         editable: !props?.isReadonly,
     };
 
+    
+
     return (
         <LexicalComposer initialConfig={initialConfig}>
             <RichTextPlugin
@@ -41,7 +42,7 @@ function LexicalEditor(props, ref) {
             />
             <HistoryPlugin />
             <AutoFocusPlugin />
-            {props?.isReadonly === undefined && <EditorRefPlugin editorRef={editableRef} />}
+            {props?.isReadonly == false && <EditorRefPlugin editorRef={ref} />}
         </LexicalComposer>
     );
 }

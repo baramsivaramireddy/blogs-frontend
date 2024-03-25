@@ -10,7 +10,14 @@ const BLOGFormDataComponent = (props) => {
     const DEFAUTVALUES = props.DEFAUTVALUES || {}
     const TITLEFORFORM = props.title
     const router = useRouter()
-    const { register, handleSubmit, formState: { errors } } = useForm({ defaultValues: DEFAUTVALUES });
+    
+
+    const { register, handleSubmit, formState: { errors } } = useForm({ defaultValues: {
+
+        title:DEFAUTVALUES.title,
+        description:DEFAUTVALUES.description,
+        visibility: DEFAUTVALUES.visibility 
+    } });
     const editorRef = useRef(null)
     const onSubmit = async (data) => {
 
@@ -37,12 +44,14 @@ const BLOGFormDataComponent = (props) => {
 
             delete payload.image
             payload.content = JSON.stringify(editorRef.current.getEditorState())
-            let response = await axiosInstance.post("/api/blogs", payload)
+
+            
+            let response = await axiosInstance.patch(`/api/blogs/${props.BLOGID}`, payload)
 
             if (response.status ==201) {
-                toast.success(' blog created successfully')
+                toast.success(' opearaion succesfully successfully')
                 router.back()
-                console.log('blog created ')
+                
             }
             else{
                 toast.error('something went wrong')
@@ -81,7 +90,7 @@ const BLOGFormDataComponent = (props) => {
 
                 <div>
                     <label htmlFor="content" className="block text-sm font-medium text-gray-700">Content:</label>
-                    <LexicalEditor  ref={editorRef} />
+                    <LexicalEditor isReadonly={props?.isReadonly}  ref={editorRef} initialEditorState ={DEFAUTVALUES.content} />
                     {/* <textarea id="content" {...register("content", { required: true })} className="mt-1 p-2 border border-gray-300 rounded-md w-full" /> */}
                     {errors.content && <span className="text-red-500 text-sm">Content is required</span>}
                 </div>
@@ -97,7 +106,7 @@ const BLOGFormDataComponent = (props) => {
                 </div>
 
                 <div>
-                    <button type="submit" disabled={isLoading} className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600">{isLoading ? "creating.." : "create a blog"}</button>
+                    <button type="submit" disabled={isLoading} className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600">{isLoading ? "doingg" :TITLEFORFORM}</button>
                 </div>
             </form>
         </div>
