@@ -18,7 +18,7 @@ function onError(err) {
 function LexicalEditor(props, ref) {
     const [editorState, setEditorState] = useState(props?.initialEditorState);
 
-    const EditorBaseDiv = useRef(null)
+  
     useEffect(() => {
         if (props?.initialEditorState) {
             setEditorState(props.initialEditorState);
@@ -37,13 +37,13 @@ function LexicalEditor(props, ref) {
 
     return (
 
-        <div ref={EditorBaseDiv} className='bg-white overflow-auto' >
+        <div className='bg-white overflow-auto' >
 
             <LexicalComposer initialConfig={initialConfig}>
                
 
 
-                {props?.isReadonly != true &&  <Toolbar EditorBaseDiv={EditorBaseDiv}  />}
+                {props?.isReadonly != true &&  <Toolbar  />}
                 <div className='relative'>
                 <RichTextPlugin
                     placeholder={<div className='absolute top-0 p-1 '>Enter some text...</div>}

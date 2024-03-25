@@ -73,7 +73,7 @@ const BLOGFormDataComponent = (props) => {
     };
 
     return (
-        <div className=" mx-auto">
+        <div className=" mx-auto overflow-y-auto">
             <h2 className="text-xl font-semibold mb-4">{TITLEFORFORM}</h2>
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                 <div>
