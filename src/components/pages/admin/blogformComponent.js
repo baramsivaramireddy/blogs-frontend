@@ -25,6 +25,7 @@ const BLOGFormDataComponent = (props) => {
 
             setIsloading(true)
 
+
            
             const payload = data
             let fileToBeUpload = data?.image[0];
@@ -44,9 +45,15 @@ const BLOGFormDataComponent = (props) => {
 
             delete payload.image
             payload.content = JSON.stringify(editorRef.current.getEditorState())
-
-            
-            let response = await axiosInstance.patch(`/api/blogs/${props.BLOGID}`, payload)
+ 
+            let response  = null
+            if (TITLEFORFORM =="create a blog"){
+                response = await axiosInstance.post(`/api/blogs/`, payload)
+             
+            }
+            else{
+                response = await axiosInstance.patch(`/api/blogs/${props.BLOGID}`, payload)
+            }
 
             if (response.status ==201) {
                 toast.success(' opearaion succesfully successfully')

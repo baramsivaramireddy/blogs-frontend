@@ -7,6 +7,7 @@ import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
 import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary';
 import { EditorRefPlugin } from '@lexical/react/LexicalEditorRefPlugin';
 import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
+import Toolbar from './plugins/Toolbar';
 
 const theme = {};
 
@@ -16,7 +17,8 @@ function onError(err) {
 
 function LexicalEditor(props, ref) {
     const [editorState, setEditorState] = useState(props?.initialEditorState);
- 
+
+    const EditorBaseDiv = useRef(null)
     useEffect(() => {
         if (props?.initialEditorState) {
             setEditorState(props.initialEditorState);
@@ -31,19 +33,36 @@ function LexicalEditor(props, ref) {
         editable: !props?.isReadonly,
     };
 
-    
+
 
     return (
-        <LexicalComposer initialConfig={initialConfig}>
-            <RichTextPlugin
-                contentEditable={<ContentEditable />}
-                placeholder={<div>Enter some text...</div>}
-                ErrorBoundary={LexicalErrorBoundary}
-            />
-            <HistoryPlugin />
-            <AutoFocusPlugin />
-            {props?.isReadonly == false && <EditorRefPlugin editorRef={ref} />}
-        </LexicalComposer>
+
+        <div ref={EditorBaseDiv} className='bg-white overflow-auto' >
+
+            <LexicalComposer initialConfig={initialConfig}>
+               
+
+
+                {props?.isReadonly != true &&  <Toolbar EditorBaseDiv={EditorBaseDiv}  />}
+                <div className='relative'>
+                <RichTextPlugin
+                    placeholder={<div className='absolute top-0 p-1 '>Enter some text...</div>}
+                    contentEditable={<div  >
+                        <ContentEditable  className='p-1 border-2 rounded' />
+
+                    </div>}
+
+                    ErrorBoundary={LexicalErrorBoundary}
+                />
+
+                </div>
+             
+                <HistoryPlugin />
+                <AutoFocusPlugin />
+                {props?.isReadonly != true  && <EditorRefPlugin editorRef={ref} />}
+            </LexicalComposer>
+        </div>
+
     );
 }
 
