@@ -9,16 +9,31 @@ import { EditorRefPlugin } from '@lexical/react/LexicalEditorRefPlugin';
 import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
 import Toolbar from './plugins/Toolbar';
 
-const theme = {};
+const theme = {
+
+
+    heading: {
+        h1: 'editor-heading-h1',
+        h2: 'editor-heading-h2',
+        h3: 'editor-heading-h3',
+        h4: 'editor-heading-h4',
+        h5: 'editor-heading-h5',
+        h6: 'editor-heading-h6',
+      },
+};
 
 function onError(err) {
     console.log(err);
 }
 
+
+import {HeadingNode, QuoteNode} from '@lexical/rich-text';
+
+const Nodes  = [HeadingNode]
 function LexicalEditor(props, ref) {
     const [editorState, setEditorState] = useState(props?.initialEditorState);
 
-  
+    const EditorBaseDiv = useRef(null)
     useEffect(() => {
         if (props?.initialEditorState) {
             setEditorState(props.initialEditorState);
@@ -31,19 +46,21 @@ function LexicalEditor(props, ref) {
         theme,
         onError,
         editable: !props?.isReadonly,
+
+        nodes:Nodes
     };
 
 
 
     return (
 
-        <div className='bg-white overflow-auto' >
+        <div ref={EditorBaseDiv} className='bg-white overflow-auto' >
 
             <LexicalComposer initialConfig={initialConfig}>
                
 
 
-                {props?.isReadonly != true &&  <Toolbar  />}
+                {props?.isReadonly != true &&  <Toolbar EditorBaseDiv={EditorBaseDiv}  />}
                 <div className='relative'>
                 <RichTextPlugin
                     placeholder={<div className='absolute top-0 p-1 '>Enter some text...</div>}

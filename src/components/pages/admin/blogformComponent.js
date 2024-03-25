@@ -10,14 +10,16 @@ const BLOGFormDataComponent = (props) => {
     const DEFAUTVALUES = props.DEFAUTVALUES || {}
     const TITLEFORFORM = props.title
     const router = useRouter()
-    
 
-    const { register, handleSubmit, formState: { errors } } = useForm({ defaultValues: {
 
-        title:DEFAUTVALUES.title,
-        description:DEFAUTVALUES.description,
-        visibility: DEFAUTVALUES.visibility 
-    } });
+    const { register, handleSubmit, formState: { errors } } = useForm({
+        defaultValues: {
+
+            title: DEFAUTVALUES.title,
+            description: DEFAUTVALUES.description,
+            visibility: DEFAUTVALUES.visibility
+        }
+    });
     const editorRef = useRef(null)
     const onSubmit = async (data) => {
 
@@ -26,7 +28,7 @@ const BLOGFormDataComponent = (props) => {
             setIsloading(true)
 
 
-           
+
             const payload = data
             let fileToBeUpload = data?.image[0];
             if (fileToBeUpload) {
@@ -45,22 +47,22 @@ const BLOGFormDataComponent = (props) => {
 
             delete payload.image
             payload.content = JSON.stringify(editorRef.current.getEditorState())
- 
-            let response  = null
-            if (TITLEFORFORM =="create a blog"){
+
+            let response = null
+            if (TITLEFORFORM == "create a blog") {
                 response = await axiosInstance.post(`/api/blogs/`, payload)
-             
+
             }
-            else{
+            else {
                 response = await axiosInstance.patch(`/api/blogs/${props.BLOGID}`, payload)
             }
 
-            if (response.status ==201) {
+            if (response.status == 201) {
                 toast.success(' opearaion succesfully successfully')
                 router.back()
-                
+
             }
-            else{
+            else {
                 toast.error('something went wrong')
             }
             setIsloading(false)
@@ -75,7 +77,7 @@ const BLOGFormDataComponent = (props) => {
     return (
         <div className=" mx-auto overflow-y-auto">
             <h2 className="text-xl font-semibold mb-4">{TITLEFORFORM}</h2>
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+            <form className="space-y-6" onSubmit={(e)=> {e.preventDefault()}}>
                 <div>
                     <label htmlFor="title" className="block text-sm font-medium text-gray-700">Title:</label>
                     <input type="text" id="title" {...register("title", { required: true })} className="mt-1 p-2 border border-gray-300 rounded-md w-full" />
@@ -97,7 +99,7 @@ const BLOGFormDataComponent = (props) => {
 
                 <div>
                     <label htmlFor="content" className="block text-sm font-medium text-gray-700">Content:</label>
-                    <LexicalEditor isReadonly={props?.isReadonly}  ref={editorRef} initialEditorState ={DEFAUTVALUES.content} />
+                    <LexicalEditor isReadonly={props?.isReadonly} ref={editorRef} initialEditorState={DEFAUTVALUES.content} />
                     {/* <textarea id="content" {...register("content", { required: true })} className="mt-1 p-2 border border-gray-300 rounded-md w-full" /> */}
                     {errors.content && <span className="text-red-500 text-sm">Content is required</span>}
                 </div>
@@ -112,10 +114,11 @@ const BLOGFormDataComponent = (props) => {
                     {errors.visibility && <span className="text-red-500 text-sm">Visibility is required</span>}
                 </div>
 
-                <div>
-                    <button type="submit" disabled={isLoading} className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600">{isLoading ? "doingg" :TITLEFORFORM}</button>
-                </div>
+
             </form>
+            <div>
+                <button type="submit" disabled={isLoading} onClick={handleSubmit(onSubmit)} className="bg-blue-500 my-5 text-white py-2 px-4 rounded-md hover:bg-blue-600">{isLoading ? "doingg" : TITLEFORFORM}</button>
+            </div>
         </div>
     );
 };

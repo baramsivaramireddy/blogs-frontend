@@ -25,7 +25,7 @@ const SingleBlogComponent = () => {
   }, [id]);
 
   return (
-    <div className="max-w-screen-lg mx-auto p-4">
+    <div className="max-w-screen-lg mx-auto p-4 overflow-y-auto">
 
       <button onClick={() => { router.back() }} className="our-nav-link w-10 text-2xl">  &#8592;</button>
       {blog ? (
