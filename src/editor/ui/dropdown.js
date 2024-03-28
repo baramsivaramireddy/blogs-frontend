@@ -41,7 +41,7 @@ export default function Dropdown({ children }) {
 
 const DropDownItems = ({ DropdownRef, children }) => {
 
-    return (<div ref={DropdownRef} className="bg-white flex flex-col gap-4 border-2  rounded   py-1">
+    return (<div ref={DropdownRef} className="bg-white flex flex-col gap-5 border-2  rounded px-2   py-1">
         {children}
     </div>)
 }
@@ -51,7 +51,7 @@ const DropDownItem = ({ onClick, children }) => {
     return (<button onClick={() => {
         closeDropDown()
         onClick()
-    }} className="p-1 border-2 bg-gray-100  m-2 border-black">
+    }} className="p-1 border-2 bg-gray-100 rounded-full  w-full   border-black">
         {children}
     </button>)
 }

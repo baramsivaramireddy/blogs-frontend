@@ -17,7 +17,6 @@ const Toolbar = ({ EditorBaseDiv }) => {
     })
   }
 
-
   const HandleFullScreen = () => {
 
     if (document.fullscreenElement) {
@@ -39,7 +38,7 @@ const Toolbar = ({ EditorBaseDiv }) => {
     })
   }
 
-  
+
   return (<div className="w-full flex  gap-5  items-center py-1">
 
 
@@ -54,6 +53,9 @@ const Toolbar = ({ EditorBaseDiv }) => {
       </DropDownItem>
       <DropDownItem onClick={() => { HandleHeading('h3') }}>
         <span>  h3</span>
+      </DropDownItem>
+      <DropDownItem onClick={() => { formatParagraph() }}>
+        <span>  p</span>
       </DropDownItem>
     </Dropdown>
 
