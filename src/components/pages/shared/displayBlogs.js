@@ -45,8 +45,8 @@ function DisplayBlogs() {
 
 
                     <div>
-                        <h3 className="text-xl font-bold mb-2">{blog.title}</h3>
-                        <p className="text-gray-700 mb-2">{blog.description}</p>
+                        <h3 className="md:text-2xl  text-sm font-bold mb-2">{blog.title}</h3>
+                        <p className="text-gray-700 md:text-xl  text-xs mb-2">{blog.description}</p>
 
                     </div>
                 </div>
@@ -57,7 +57,7 @@ function DisplayBlogs() {
     };
 
     return (
-        <div className="flex flex-col gap-5 overflow-auto ">
+        <div className="flex flex-col gap-5 overflow-auto  p-5">
 
 
 

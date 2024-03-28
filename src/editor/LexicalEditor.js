@@ -13,7 +13,7 @@ const theme = {
 
 
     heading: {
-        h1: 'editor-heading-h1',
+        h1: 'text-2xl font-extrabold	 ',
         h2: 'editor-heading-h2',
         h3: 'editor-heading-h3',
         h4: 'editor-heading-h4',
